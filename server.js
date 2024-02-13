@@ -23,6 +23,20 @@ function serveHtmlFile(fileName, response) {
         }
     });
 }
+// a function to serve the CSS files
+function serveCssFile(fileName, response) {
+    const filePath = `./css/${fileName}`;
+    fs.readFile(filePath, (err, data) => {
+        if (err) {
+            response.writeHead(404, { 'Content-Type': 'text/css' });
+            response.end("/* CSS file not found */");
+        } else {
+            response.writeHead(200, { 'Content-Type': 'text/css' });
+            response.end(data);
+        }
+    });
+}
+
 // a function to log to a file
 const logToFile = (msg) => {
     const logMessage = `${new Date().toISOString()} - ${msg}\n`;
@@ -64,12 +78,20 @@ const server = http.createServer((request, response) => {
         case '/subscribe':
             serveHtmlFile('subscribe.html', response);
             break;
+        case '/css/styles.css':
+            serveCssFile('styles.css', response);
+            break;
+        case '/favicon.ico':
+            response.writeHead(204); // No Content
+            response.end();
+            break;
         default:
             response.writeHead(404, { 'Content-Type': 'text/html' });
             response.end('<h1>404 Not Found</h1>');
-            myEmitter.emit('error', 'Page not found');
+            myEmitter.emit('error', 'Page not found: ' + url); // Now logging the specific URL that was not found
     }
 });
+
 
 // starts the server
 const port = 3000;
