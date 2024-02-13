@@ -54,7 +54,7 @@ myEmitter.on('fileRead', (fileName) => {
 
 myEmitter.on('error', (msg) => {
     console.error(`Error: ${msg}`);
-    logToFile(`Error: ${msg}`); // log to file
+    logToFile(`Error: ${msg}`); // logs to file
     console.error(`Error: ${msg}`);
 });
 
@@ -82,7 +82,7 @@ const server = http.createServer((request, response) => {
             serveCssFile('styles.css', response);
             break;
         case '/favicon.ico':
-            response.writeHead(204); // No Content
+            response.writeHead(204);
             response.end();
             break;
         default:
