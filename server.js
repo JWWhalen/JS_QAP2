@@ -40,7 +40,7 @@ myEmitter.on('fileRead', (fileName) => {
 
 myEmitter.on('error', (msg) => {
     console.error(`Error: ${msg}`);
-    logToFile(`Error: ${msg}`); // Log errors to file as well
+    logToFile(`Error: ${msg}`); // log to file
     console.error(`Error: ${msg}`);
 });
 
